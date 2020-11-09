@@ -14,6 +14,9 @@ totalEmpHr=0;
 totalWorkingDays=0;
 totalWage=0;
 
+#decalre dictionary to store  daily wage 
+declare -A dailyWageArray
+
 #function to get employee work hours
 function getEmployeeWorkHours(){
 
@@ -38,10 +41,11 @@ do
 	((totalWorkingDays++));
 	empHrs=$(getEmployeeWorkHours $((RANDOM%3)) );
 	dailyWage=$((empHrs*EMP_RATE_PER_HOUR));
-	dailyWageArray[$totalWorkingDays]=$dailyWage;
+	dailyWageArray["Day"$totalWorkingDays]=$dailyWage;
 	totalEmpHr=$(($totalEmpHr+$empHrs));
 	totalWage=$((totalWage+dailyWage));
 
 done
-echo "Total Wage:-"$totalWage
-echo "Daily Wage Array Elements:-"${dailyWageArray[@]}
+echo "Daily Wage Index Positions :-"${!dailyWageArray[@]}
+echo "Daily Wage Array Elements  :-"${dailyWageArray[@]}
+echo "Total Wage :- "$totalWage
